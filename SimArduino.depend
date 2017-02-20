@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1484629367 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\serial.cpp
+	"SerialClass.h"
+
+1484629382 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\serialclass.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1487047407 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\simarduino.cpp
+	<stdio.h>
+	<iostream>
+	<windows.h>
+	<time.h>
+	"sharedmemory.h"
+	"SerialClass.h"
+
+1384863143 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\sharedmemory.h
+
