@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1484629367 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\serial.cpp
+1484625767 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\serial.cpp
 	"SerialClass.h"
 
-1484629382 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\serialclass.h
+1484625782 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\serialclass.h
 	<windows.h>
 	<stdio.h>
 	<stdlib.h>
 
-1487047407 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\simarduino.cpp
+1487647408 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\simarduino.cpp
 	<stdio.h>
 	<iostream>
 	<windows.h>
@@ -15,5 +15,5 @@
 	"sharedmemory.h"
 	"SerialClass.h"
 
-1384863143 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\sharedmemory.h
+1384859543 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\sharedmemory.h
 
