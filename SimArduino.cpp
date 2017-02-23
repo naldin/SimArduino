@@ -75,8 +75,8 @@ int runValues()
 
 // *** End memory-mapped ***
     // Variables
-    char outData[20]; // If number [20] is to low will be crash
-    char intChr[20];
+    char outData[5];
+    char intChr[4];
 
     float speed = sharedData->mSpeed;
     float rpm = sharedData->mRpm;
@@ -94,12 +94,12 @@ int runValues()
     printValue(" Throttle: ", throttle);
     printValue(" Brake...: ", brake);
     cout << endl;
-    cout << " Velocidade angular em graus: " << endl;
+    cout << " Angular Velocity in degrees:" << endl;
     printValue(" Y[1]: ", ANGLE*sharedData->mAngularVelocity[1]);
     cout << endl;
 
     // Send data to Arduino
-    if (angularVelocity > 0)
+    if (angularVelocity <= 1.2 && angularVelocity > 0) //1.2 is approximately max angular velocity (rad/s) of the F1 car
     {
         sprintf(intChr, "%.0f", angularVelocity*820);
         sprintf(outData, "%c", 'l');
@@ -107,16 +107,17 @@ int runValues()
         SP->WriteData(outData, 4);
 
     }
-    else if (angularVelocity < 0)
+    else if (angularVelocity >= -1.2 && angularVelocity < 0)
     {
         sprintf(intChr, "%.0f", angularVelocity*-820);
         sprintf(outData, "%c", 'r');
         strcat(outData, intChr);
         SP->WriteData(outData, 4);
     }
-    Sleep(5); // Same time with Arduino to sync
+    Sleep(10); //Same time with Arduino to sync
     system("cls");
     return 0;
+
 }
 
 int main ()

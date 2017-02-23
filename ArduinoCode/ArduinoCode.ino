@@ -23,7 +23,7 @@ void setup() {
 void loop() {
   if (Serial.available()) {
     lcd.clear();
-    delay(5);
+    delay(10);
 
     if (Serial.read() == 'r') {
       while (Serial.available() > 0) {
