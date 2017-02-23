@@ -1,11 +1,8 @@
-v0.1
+v0.1 - 13/02/2017
 First Commit
 
-v0.2
-2nd Commit
-
-v0.3
+v0.3 - 20/02/2017
 -Servos L & R now working 
 
-v0.4
+v0.4 - 22/02/2017
 -Fix the problem that crash when mAngularVelocity went up 1.2

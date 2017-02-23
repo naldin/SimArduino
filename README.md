@@ -1,6 +1,13 @@
 # SimArduino
-SIM Cockpit Motion With Arduino
+SIM Motion Cockpit With Arduino
+
+Note: The aplication is set to work in COM5, if you is using another port, change the file SimArduino.cpp line 13.
+Plug Arduino and run game before run aplication.
 
 This project is ongoing. Please be patient.
 
-I'm using [Code::Blocks] (http://codeblocks.org)
+Libraries used:
+[pCars] (http://forum.projectcarsgame.com/showthread.php?30903-HowTo-Shared-Memory-(API)-App)
+[Serial] (http://playground.arduino.cc/Interfacing/CPPWindows)
+
+I'm using [Code::Blocks] (http://codeblocks.org) for development
