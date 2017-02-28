@@ -16,39 +16,47 @@ void setup() {
   analogWrite(6, 255); //LCD brightness
   myservoL.attach(7);
   myservoR.attach(A0);
-  myservoL.write(120);
-  myservoR.write(45);
+  myservoL.write(118);
+  myservoR.write(44);
 }
 
 void loop() {
   if (Serial.available()) {
-    lcd.clear();
-    delay(10);
 
-    if (Serial.read() == 'r') {
-      while (Serial.available() > 0) {
-        readserial = Serial.read(); // recebe cada caracter da serial
-        strVal += readserial; // carrega buffer string
-      }
-      intVal = (strVal.toInt());
-      intVal = map(intVal, 0, 999, 45, 0);
-      myservoR.write(intVal);
-      lcd.print("R: ");
-      lcd.print(strVal);
-      strVal = "";
-    }
+    switch (Serial.read()) {
+      case 'l':
+        lcd.clear();
+        while (Serial.available() > 0) {
+          readserial = Serial.read(); // recebe cada caracter da serial
+          strVal += readserial; // carrega buffer string
+          delay(1);
+        }
+        intVal = (strVal.toInt());
+        intVal = map(intVal, 0, 985, 105, 170);
+        myservoL.write(intVal);
+        lcd.setCursor(0, 0);
+        lcd.print("L: ");
+        lcd.print(strVal);
+        strVal = "";
+        delay(50);
+        break;
 
-    else {
-      while (Serial.available() > 0) {
-        readserial = Serial.read(); // recebe cada caracter da serial
-        strVal += readserial; // carrega buffer string
-      }
-      intVal = (strVal.toInt());
-      intVal = map(intVal, 0, 999, 120, 180);
-      myservoL.write(intVal);
-      lcd.print("L: ");
-      lcd.print(strVal);
-      strVal = "";
+      case 'r':
+        lcd.clear();
+        while (Serial.available() > 0) {
+          readserial = Serial.read(); // recebe cada caracter da serial
+          strVal += readserial; // carrega buffer string
+          delay(1);
+        }
+        intVal = (strVal.toInt());
+        intVal = map(intVal, 0, 985, 52, 10);
+        myservoR.write(intVal);
+        lcd.setCursor(0, 1);
+        lcd.print("R: ");
+        lcd.print(strVal);
+        strVal = "";
+        delay(50);
+        break;
     }
   }
 }

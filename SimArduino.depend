@@ -7,7 +7,7 @@
 	<stdio.h>
 	<stdlib.h>
 
-1487783836 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\simarduino.cpp
+1488169867 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\simarduino.cpp
 	<stdio.h>
 	<iostream>
 	<windows.h>
@@ -16,4 +16,22 @@
 	"SerialClass.h"
 
 1384859543 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino\sharedmemory.h
+
+1484625767 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\serial.cpp
+	"SerialClass.h"
+
+1484625782 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\serialclass.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1488294243 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino.cpp
+	<stdio.h>
+	<iostream>
+	<windows.h>
+	<time.h>
+	"sharedmemory.h"
+	"SerialClass.h"
+
+1384859543 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\sharedmemory.h
 
