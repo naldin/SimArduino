@@ -1,11 +1,31 @@
+/*
+    SIM Arduino
+    Copyright (C) 2017  Ronaldo Rezende Junior (ronaldo.rrj at gmail)
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
 #include<stdio.h>
 #include<iostream>
 #include<windows.h>
 #include<time.h>
 #include "sharedmemory.h"
 #include "SerialClass.h"
+#include <math.h>
+
 #define MAP_OBJECT_NAME "$pcars$" //Name of the pCars memory mapped file
 #define ANGLE 57.30 //Factor radians to degrees
+#define UPVAL 355   //555 + DOWNVAL(197) + breakVal(100) below = 852 (value to Arduino)
+#define DOWNVAL 197
 
 using namespace std;
 
@@ -76,9 +96,8 @@ int runValues()
 // *** End memory-mapped ***
     // Variables
     char outData[5];
-    char outData2[5];
     char intChr[4];
-    char intChr2[4];
+    int brakeVal;
 
     float speed = sharedData->mSpeed;
     float rpm = sharedData->mRpm;
@@ -98,27 +117,38 @@ int runValues()
     cout << endl;
     cout << " Angular Velocity in degrees:" << endl;
     printValue(" Y[1]: ", ANGLE*sharedData->mAngularVelocity[1]);
+    cout << " Angular Velocity in rad/s:" << endl;
+    printValue(" Y[1]: ", sharedData->mAngularVelocity[1]);
     cout << endl;
 
-    // Send data to Arduino
+    if (brake > 0){
+        brakeVal = (exp(brake)*3.6*speed)/2.1;
+    }
+    else{
+        brakeVal = 100;
+    }
+    cout << " brakeVal: " << brakeVal << endl;
+    // Separating left and right data send data to Arduino
     if (angularVelocity <= 1.2 && angularVelocity > 0) //1.2 is approximately max angular velocity (rad/s) of the F1 car
     {
-        sprintf(outData, "%c%.0f", 'l', (angularVelocity*655)+197);
+        sprintf(outData, "%c%.0f", 'l', (angularVelocity*UPVAL)+DOWNVAL+brakeVal); //Max Sum = 852 to Arduino
         SP->WriteData(outData, (unsigned)strlen(outData));
+        brakeVal = 0;
         Sleep(60); //Same time with Arduino to sync
 
-        sprintf(outData, "%c%.0f", 'r', angularVelocity*197);
+        sprintf(outData, "%c%.0f", 'r', (1.2-angularVelocity)*DOWNVAL);
         SP->WriteData(outData, (unsigned)strlen(outData));
         Sleep(60); //Same time with Arduino to sync
 
     }
     else if (angularVelocity >= -1.2 && angularVelocity < 0)
     {
-        sprintf(outData, "%c%.0f", 'r', (angularVelocity*-655)+197);
+        sprintf(outData, "%c%.0f", 'r', (angularVelocity*-UPVAL)+DOWNVAL+brakeVal); //Max Sum = 852 to Arduino
         SP->WriteData(outData, (unsigned)strlen(outData));
+        brakeVal = 0;
         Sleep(60); //Same time with Arduino to sync
 
-        sprintf(outData, "%c%.0f", 'l', angularVelocity*-197);
+        sprintf(outData, "%c%.0f", 'l', (1.2-(angularVelocity*-1))*DOWNVAL);
 
         SP->WriteData(outData, (unsigned)strlen(outData));
         Sleep(60); //Same time with Arduino to sync

@@ -25,13 +25,14 @@
 	<stdio.h>
 	<stdlib.h>
 
-1488294243 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino.cpp
+1488925415 source:c:\users\ronaldo\dropbox\eletronica\sim\simarduino\simarduino.cpp
 	<stdio.h>
 	<iostream>
 	<windows.h>
 	<time.h>
 	"sharedmemory.h"
 	"SerialClass.h"
+	<math.h>
 
 1384859543 c:\users\ronaldo\dropbox\eletronica\sim\simarduino\sharedmemory.h
 
