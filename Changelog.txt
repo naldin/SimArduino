@@ -11,3 +11,6 @@ v1.0 - 08/03/2017
 -Now you put your correct COMx port when start program
 -Program wait for game
 -Side and brake rolling working together
+
+v1.1 - 08/03/2017
+-Added odometer (km/h and rpm)

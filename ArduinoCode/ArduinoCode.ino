@@ -8,10 +8,13 @@
 
 #include <LiquidCrystal.h>
 #include <Servo.h>
+#define DELAYSYNC 20
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 Servo myservoR;
 Servo myservoL;
+Servo myservoS;
+Servo myservoP;
 
 char readserial;
 String strVal;
@@ -24,10 +27,14 @@ void setup() {
   analogWrite(6, 255); //LCD brightness
   myservoL.attach(7);  //Choice the correct pin
   myservoR.attach(A0); //Choice the correct pin
+  myservoS.attach(A1);
+  myservoP.attach(A2);
 
   // Start value to servos
   myservoL.write(118);
   myservoR.write(44);
+  myservoS.write(180);
+  myservoP.write(180);
 }
 
 void loop() {
@@ -47,7 +54,7 @@ void loop() {
         lcd.print("L: ");
         lcd.print(strVal);
         strVal = "";          // clear string
-        delay(20);            //sync with pc
+        delay(DELAYSYNC);            //sync with pc
         break;
 
       //same above
@@ -65,7 +72,35 @@ void loop() {
         lcd.print("R: ");
         lcd.print(strVal);
         strVal = "";
-        delay(20);
+        delay(DELAYSYNC);
+        break;
+
+      case 's':
+        lcd.clear();
+        while (Serial.available() > 0) {
+          readserial = Serial.read();
+          strVal += readserial;
+          delay(1);
+        }
+        intVal = (strVal.toInt());
+        intVal = map(intVal, 0, 999, 180, 0);
+        myservoS.write(intVal);
+        strVal = "";
+        delay(DELAYSYNC);
+        break;
+
+      case 'p':
+        lcd.clear();
+        while (Serial.available() > 0) {
+          readserial = Serial.read();
+          strVal += readserial;
+          delay(1);
+        }
+        intVal = (strVal.toInt());
+        intVal = map(intVal, 0, 999, 180, 0);
+        myservoP.write(intVal);
+        strVal = "";
+        delay(DELAYSYNC);
         break;
     }
   }

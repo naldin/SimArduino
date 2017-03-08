@@ -139,6 +139,18 @@ int runValues()
     printValue(" Y[1]: ", sharedData->mAngularVelocity[1]);
     cout << endl;
 
+    //Send rpm to Arduino
+    sprintf(outData, "%c%0.f", 'p', ((rpm/maxrpm)*999)*.7);//.7 is 70% of total for the best vision
+    SP->WriteData(outData, (unsigned)strlen(outData));
+    Sleep(20);
+
+    //Send speed to Arduino
+    val = speed*3.6*3.3; //3.6 is m/s to km/h and 3.3 for max 300km/h
+    if (val > 999) val = 999; //Security to max value to not exceed 999.
+    sprintf(outData, "%c%d", 's', val); //Load char
+    SP->WriteData(outData, (unsigned)strlen(outData));
+    Sleep(20);
+
     // Getting brake values
     if (brake > 0){
         brakeVal = (exp(brake)*3.6*speed);
@@ -150,7 +162,7 @@ int runValues()
     {
         val = (angularVelocity*UPVAL)+DOWNVAL+brakeVal;
         if (val > 999) val = 999; //Security to max value to not exceed 999. Because breakVal adds with Angular Velocity sum.
-        sprintf(outData, "%c%d", 'l', val); //Load
+        sprintf(outData, "%c%d", 'l', val); //Load char
         SP->WriteData(outData, (unsigned)strlen(outData));
         Sleep(20); //Time to sync with Arduino
 
