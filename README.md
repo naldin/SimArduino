@@ -8,4 +8,4 @@ Libraries used:
 
 I'm using [Code::Blocks] (http://codeblocks.org) for development
 
-Para portuguese, veja meu blog: [http://xyzturbo.blogspot.com] (http://xyzturbo.blogspot.com)
+>>> Para português, veja meu blog: [http://xyzturbo.blogspot.com] (http://xyzturbo.blogspot.com) <<<
