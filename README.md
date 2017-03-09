@@ -1,6 +1,8 @@
 # SimArduino
 SIM Motion Cockpit With Arduino
 
+Video running [https://www.youtube.com/watch?v=jmwfQB9GJ1U] (https://www.youtube.com/watch?v=jmwfQB9GJ1U)
+
 This project is ongoing. Please be patient.
 
 Libraries used:
