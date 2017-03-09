@@ -8,13 +8,13 @@
 
 #include <LiquidCrystal.h>
 #include <Servo.h>
-#define DELAYSYNC 20
+#define DELAYSYNC 20 //sync with pc
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-Servo myservoR;
-Servo myservoL;
-Servo myservoS;
-Servo myservoP;
+Servo myservoR; //Right servo
+Servo myservoL; //Left servo
+Servo myservoS; //Speed servo
+Servo myservoP; //RPM servo
 
 char readserial;
 String strVal;
@@ -27,10 +27,10 @@ void setup() {
   analogWrite(6, 255); //LCD brightness
   myservoL.attach(7);  //Choice the correct pin
   myservoR.attach(A0); //Choice the correct pin
-  myservoS.attach(A1);
-  myservoP.attach(A2);
+  myservoS.attach(A1); //Choice the correct pin
+  myservoP.attach(A2); //Choice the correct pin
 
-  // Start value to servos
+  // Start values to servos
   myservoL.write(118);
   myservoR.write(44);
   myservoS.write(180);
@@ -58,7 +58,7 @@ void loop() {
         break;
 
       //same above
-      case 'r':
+      case 'r': //if data start with 'r' (right servo)
         lcd.clear();
         while (Serial.available() > 0) {
           readserial = Serial.read();
@@ -75,7 +75,7 @@ void loop() {
         delay(DELAYSYNC);
         break;
 
-      case 's':
+      case 's': //if data start with 's' (speed servo)
         lcd.clear();
         while (Serial.available() > 0) {
           readserial = Serial.read();
@@ -85,11 +85,14 @@ void loop() {
         intVal = (strVal.toInt());
         intVal = map(intVal, 0, 999, 180, 0);
         myservoS.write(intVal);
+        lcd.setCursor(8, 0);
+        lcd.print("S: ");
+        lcd.print(strVal);
         strVal = "";
         delay(DELAYSYNC);
         break;
 
-      case 'p':
+      case 'p': //if data start with 'p' (rpm servo)
         lcd.clear();
         while (Serial.available() > 0) {
           readserial = Serial.read();
@@ -99,6 +102,9 @@ void loop() {
         intVal = (strVal.toInt());
         intVal = map(intVal, 0, 999, 180, 0);
         myservoP.write(intVal);
+        lcd.setCursor(8, 1);
+        lcd.print("P: ");
+        lcd.print(strVal);
         strVal = "";
         delay(DELAYSYNC);
         break;

@@ -25,6 +25,7 @@
 #define ANGLE 57.30 // Factor radians to degrees
 #define UPVAL 583   // 700/1.2 = 583.33
 #define DOWNVAL 250 // 300/1.2 = 250
+#define DELAYSYNC 20 //sync with Arduino
 #define MAP_OBJECT_NAME "$pcars$" //Name of the pCars memory mapped file
 HANDLE fileHandle; //Used in waitGame()
 Serial *SP; //To initSerial()
@@ -142,14 +143,14 @@ int runValues()
     //Send rpm to Arduino
     sprintf(outData, "%c%0.f", 'p', ((rpm/maxrpm)*999)*.7);//.7 is 70% of total for the best vision
     SP->WriteData(outData, (unsigned)strlen(outData));
-    Sleep(20);
+    Sleep(DELAYSYNC);
 
     //Send speed to Arduino
     val = speed*3.6*3.3; //3.6 is m/s to km/h and 3.3 for max 300km/h
     if (val > 999) val = 999; //Security to max value to not exceed 999.
     sprintf(outData, "%c%d", 's', val); //Load char
     SP->WriteData(outData, (unsigned)strlen(outData));
-    Sleep(20);
+    Sleep(DELAYSYNC);
 
     // Getting brake values
     if (brake > 0){
@@ -164,14 +165,14 @@ int runValues()
         if (val > 999) val = 999; //Security to max value to not exceed 999. Because breakVal adds with Angular Velocity sum.
         sprintf(outData, "%c%d", 'l', val); //Load char
         SP->WriteData(outData, (unsigned)strlen(outData));
-        Sleep(20); //Time to sync with Arduino
+        Sleep(DELAYSYNC); //Time to sync with Arduino
 
         val = ((1.2-angularVelocity)*DOWNVAL)+brakeVal;
         if (val > 999) val = 999;
         sprintf(outData, "%c%d", 'r', val);
         SP->WriteData(outData, (unsigned)strlen(outData));
         brakeVal = 0;
-        Sleep(20); //Time to sync with Arduino
+        Sleep(DELAYSYNC); //Time to sync with Arduino
 
     }
     else if (angularVelocity >= -1.2 && angularVelocity < 0)
@@ -180,14 +181,14 @@ int runValues()
         if (val > 999) val = 999;
         sprintf(outData, "%c%d", 'r', val);
         SP->WriteData(outData, (unsigned)strlen(outData));
-        Sleep(20); //Time to sync with Arduino
+        Sleep(DELAYSYNC); //Time to sync with Arduino
 
         val = ((1.2-angularVelocity*-1)*DOWNVAL)+brakeVal;
         if (val > 999) val = 999;
         sprintf(outData, "%c%d", 'l', val);
         SP->WriteData(outData, (unsigned)strlen(outData));
         brakeVal = 0;
-        Sleep(20); //Time to sync with Arduino
+        Sleep(DELAYSYNC); //Time to sync with Arduino
 
     }
     system("cls");
