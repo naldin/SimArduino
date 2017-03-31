@@ -8,7 +8,7 @@
 
 #include <LiquidCrystal.h>
 #include <Servo.h>
-#define DELAYSYNC 20 //sync with pc
+#define DELAYSYNC 18 //sync with pc
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 Servo myservoR; //Right servo
@@ -37,77 +37,51 @@ void setup() {
   myservoP.write(180);
 }
 
+void runVal(int map1, int map2, int lcdC, int lcdR, String lcdLabel) {
+  lcd.clear();
+  while (Serial.available() > 0) {    //run while has byte in serial
+    readserial = Serial.read();;      //read each byte
+    strVal += readserial;             //load string
+    delay(1);
+  }
+  intVal = (strVal.toInt());
+  intVal = map(intVal, 0, 999, map1, map2); //use your values
+  lcd.setCursor(lcdC, lcdR);
+  lcd.print(lcdLabel);
+  lcd.print(strVal);
+}
+
 void loop() {
   if (Serial.available()) {    //wait serial
     switch (Serial.read()) {   //read serial
-      case 'l':                //if data start with 'l' (left servo)
-        lcd.clear();
-        while (Serial.available() > 0) {   //run while has byte in serial
-          readserial = Serial.read();      //read each byte
-          strVal += readserial;            //load string
-          delay(1);
-        }
-        intVal = (strVal.toInt());
-        intVal = map(intVal, 0, 999, 110, 160); //use your values
-        myservoL.write(intVal);                 //write to servo
-        lcd.setCursor(0, 0);
-        lcd.print("L: ");
-        lcd.print(strVal);
-        strVal = "";          // clear string
-        delay(DELAYSYNC);            //sync with pc
+      case 'l': //if data start with 'l' (left servo)
+        runVal(110, 160, 0, 0, "L: ");
+        myservoL.write(intVal);  //write to servo
+        strVal = "";             // clear string
+        delay(DELAYSYNC);        //sync with pc
         break;
 
-      //same above
       case 'r': //if data start with 'r' (right servo)
-        lcd.clear();
-        while (Serial.available() > 0) {
-          readserial = Serial.read();
-          strVal += readserial;
-          delay(1);
-        }
-        intVal = (strVal.toInt());
-        intVal = map(intVal, 0, 999, 50, 20);
+        runVal(50, 20, 0, 1, "R: ");
         myservoR.write(intVal);
-        lcd.setCursor(0, 1);
-        lcd.print("R: ");
-        lcd.print(strVal);
         strVal = "";
         delay(DELAYSYNC);
         break;
 
       case 's': //if data start with 's' (speed servo)
-        lcd.clear();
-        while (Serial.available() > 0) {
-          readserial = Serial.read();
-          strVal += readserial;
-          delay(1);
-        }
-        intVal = (strVal.toInt());
-        intVal = map(intVal, 0, 999, 180, 0);
+        runVal(180, 0, 8, 0, "S: ");
         myservoS.write(intVal);
-        lcd.setCursor(8, 0);
-        lcd.print("S: ");
-        lcd.print(strVal);
         strVal = "";
         delay(DELAYSYNC);
         break;
 
       case 'p': //if data start with 'p' (rpm servo)
-        lcd.clear();
-        while (Serial.available() > 0) {
-          readserial = Serial.read();
-          strVal += readserial;
-          delay(1);
-        }
-        intVal = (strVal.toInt());
-        intVal = map(intVal, 0, 999, 180, 0);
+        runVal(180, 0, 8, 1, "P: ");
         myservoP.write(intVal);
-        lcd.setCursor(8, 1);
-        lcd.print("P: ");
-        lcd.print(strVal);
         strVal = "";
         delay(DELAYSYNC);
         break;
     }
   }
 }
+
