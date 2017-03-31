@@ -141,7 +141,7 @@ int runValues()
     cout << endl;
 
     //Send rpm to Arduino
-    sprintf(outData, "%c%0.f", 'p', ((rpm/maxrpm)*999)*.7);//.7 is 70% of total for the best vision
+    sprintf(outData, "%c%.0f", 'p', ((rpm/maxrpm)*999)*.7);//.7 is 70% of total for the best vision
     SP->WriteData(outData, (unsigned)strlen(outData));
     Sleep(DELAYSYNC);
 
