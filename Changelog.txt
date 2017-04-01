@@ -1,11 +1,5 @@
-v0.1 - 13/02/2017
-First Commit
-
-v0.3 - 20/02/2017
--Servos L & R now working 
-
-v0.4 - 22/02/2017
--Fix the problem that crash when mAngularVelocity went up 1.2
+v1.1 - 08/03/2017
+-Added odometer (km/h and rpm)
 
 v1.0 - 08/03/2017
 -Now you can put your correct COMx port when start program
@@ -13,5 +7,11 @@ v1.0 - 08/03/2017
 -Program wait for game
 -Side and brake rolling working together
 
-v1.1 - 08/03/2017
--Added odometer (km/h and rpm)
+v0.4 - 22/02/2017
+-Fix the problem that crash when mAngularVelocity went up 1.2
+
+v0.3 - 20/02/2017
+-Servos L & R now working 
+
+v0.1 - 13/02/2017
+First Commit
