@@ -1,7 +1,7 @@
 # SimArduino
 SIM Motion Cockpit With Arduino
 
-Video running [https://www.youtube.com/watch?v=jmwfQB9GJ1U] (https://www.youtube.com/watch?v=jmwfQB9GJ1U)
+Movie [https://www.youtube.com/watch?v=jmwfQB9GJ1U] (https://www.youtube.com/watch?v=jmwfQB9GJ1U)
 
 This project is ongoing. Please be patient.
 
@@ -10,4 +10,4 @@ Libraries used:
 
 I'm using [Code::Blocks] (http://codeblocks.org) for development
 
-Para português, veja meu blog: [http://xyzturbo.blogspot.com] (http://xyzturbo.blogspot.com)
+*Para português, veja meu blog: [http://xyzturbo.blogspot.com] (http://xyzturbo.blogspot.com)
